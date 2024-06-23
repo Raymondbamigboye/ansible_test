@@ -1,0 +1,26 @@
+---
+
+- name: ansible playbook for handler
+  hosts: ansible_servers
+  remote_user: ansible-user
+  become: true
+
+  environment:
+    wise_people: "nigeria"
+    Country_tribe: "yoruba"
+    my_var: "project in progress"
+
+  tasks:
+    - name: environment var at playbook level
+      command: "echo $wise_people"
+
+    - name: greetings in yoruba
+      environment:
+        E_ku_ijometa: "Hello nigerians in kent"
+      command: "echo $E_ku_ijometa"
+
+    - name: The yorubas
+      command: "echo $wise_people & $Country_tribe"
+
+    - name: The project
+      command: "echo $my_var"
