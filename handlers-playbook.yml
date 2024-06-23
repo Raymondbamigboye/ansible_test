@@ -1,0 +1,43 @@
+---
+
+- name: ansible playbook for handlers
+  hosts: dbservers
+  remote_user: ansible-user
+  become: true
+  
+
+  tasks:
+
+    - name: update cache 
+      yum:
+        update_cache: yes
+
+
+    - name: install httpd
+      yum:
+        name: httpd
+        state: latest
+
+    - name: start httpd service on linux
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+
+    - name: updated.html copy
+      copy: 
+        src: /home/ansible-user/updated.html 
+        dest: /var/www/html/index.html
+
+      notify:
+      - Restart httpd
+
+
+  handlers: 
+    - name: Restart httpd
+      service:
+        name: httpd
+        state: restarted
+    
+    

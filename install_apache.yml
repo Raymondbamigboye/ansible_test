@@ -1,0 +1,46 @@
+---
+
+- name: install apache package
+  hosts: dbservers
+  remote_user: ansible-user
+  become: true
+
+  tasks:
+
+    - name: install apache package
+      yum:
+        name: httpd
+        state: latest
+
+
+    - name: create repository index
+      file:
+        dest: /home/ansible-user/my-project
+        state: directory
+   
+
+    - name: upgrade and update repository index
+      yum:
+        update_cache: yes
+
+
+
+    - name: start dbservers
+      service:
+        name: httpd
+        state: started
+        enabled: true
+    
+- name: create directory
+  hosts: dbservers
+  remote_user: ansible-user
+  become: true
+
+  tasks:
+
+    - name: create directory
+      file:
+        dest: /home/ansible-user/my-project
+        state: directory
+
+

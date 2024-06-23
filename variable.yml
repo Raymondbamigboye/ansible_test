@@ -1,0 +1,49 @@
+---
+
+- name: learning ansible variable
+  hosts: ansible_servers
+  remote_user: ansible-user
+
+  vars:
+    country: "nigeria"
+    allowed: yes
+    cars:
+      - mercedes: 400000
+      - volvo: 32000
+      - bmw: 23000
+      - volks: 20000
+    fruits:
+      - mango: £10
+      - guava: £5
+      - orange: £7
+
+  tasks:
+    - name: string variable
+      debug:
+        var: country   
+
+    - name: Boolean variable
+      debug:
+        msg: "hello"
+      when: allowed
+
+    - name: names of cars
+      command: echo "{{ cars[2] }}"
+      register: best_car_var
+      
+    - name: print the best car
+      debug:
+        var: best_car_var
+
+    - name: the sweetest fruit
+      command: echo "{{ fruits[1] }}"
+      register: sweetest_fruit
+
+    - name: print the sweetest fruit
+      debug:
+        var: sweetest_fruit 
+
+
+
+
+

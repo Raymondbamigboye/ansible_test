@@ -1,0 +1,22 @@
+---
+
+- name: learn ansible variable
+  hosts: dbservers
+  remote_user: ansible-user
+
+  vars:
+    cars:
+      - bens
+      - volvo
+      - toyota
+      - xito
+      - honda
+
+  tasks:
+    - name: names of car
+      command: echo "{{ cars[2] }}"
+      register: best_cars
+
+    - name: print best cars
+      debug:
+        var: best_cars    
