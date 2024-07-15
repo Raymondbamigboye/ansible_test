@@ -1,0 +1,63 @@
+---
+- import_tasks:packages.yml
+- import_tasks: message.yml
+- name: start nginx service
+  service: 
+    name: nginx
+    start: started
+
+##package.yml##
+---
+- name: install required packages
+  yum: 
+    name:
+      - nginx
+      - git
+      - curl
+    state: latest
+    update_cache: yes
+
+
+##message.yml##
+---
+- name: set message file
+  copy:
+    content: "{{message}}"
+    dest: /var/www/html/index.html
+
+
+##main.yml##
+---  
+- name: install apache webserver
+  become: yes
+  yum:
+    name: apaches
+    state: latest
+    update_cache: yes
+
+
+- name: start apache service
+  become: yes
+  service:
+    name: lighttpd
+    state: started        
+
+
+
+
+
+
+
+
+
+ansible_imports_roles
+  inventory
+    ansible-import-roles-playbook
+  roles
+    custom-role
+      tasks
+        main.yml
+        message.yml
+        packages.yml
+
+

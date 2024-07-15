@@ -1,0 +1,13 @@
+---
+
+- name: Ansible playbook for handlers
+  host: webservers
+  become:yes
+  remote_user: ansible-user
+
+
+  handlers:
+    - name: Restart Nginx
+      service: 
+        name: Nginx
+        state: restarted   

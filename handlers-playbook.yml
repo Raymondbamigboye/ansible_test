@@ -1,0 +1,20 @@
+---
+
+- name: updated.html copied
+  hosts: webservers
+  remote_user: ansible-user
+  tasks:
+    - name: spin up updated.html
+      copy:
+        src: /home/ansible-user/ansible_test/index.html
+        dest: /var/www/html/index.html
+      notify: restart httpd    
+
+  
+  handlers:
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
+
+        

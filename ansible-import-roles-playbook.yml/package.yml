@@ -1,0 +1,11 @@
+---
+- name: install required packages
+  yum:
+  name:
+    - nginx
+    - git
+    - curl
+  state: latest
+  update_cache: yes
+
+

@@ -1,0 +1,13 @@
+---  
+- name: install apache webserver
+  become: yes
+  yum:
+    name: apaches
+    state: latest
+    update_cache: yes
+
+- name: start apache service
+  become: yes
+  service:
+    name: lighttpd
+    state: started        
