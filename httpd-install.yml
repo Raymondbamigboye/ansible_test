@@ -9,7 +9,7 @@
 
     - name: copy index.html file
       copy:
-        src: /etc/ansible/index.html
+        src: /home/ansible-user/ansible_test/index.html
         dest: /home/ansible-user/my-project
 
     - name: install httpd
